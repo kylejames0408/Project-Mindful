@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
     private bool _third;
 
     // serialized objects
-    [SerializeField] GameObject firstPerson;
-    [SerializeField] GameObject thirdPerson;
+    [SerializeField] private GameObject _firstPerson;
+    [SerializeField] private GameObject _thirdPerson;
 
     // player transforms
     private Transform _fpPlayer;
@@ -30,15 +30,15 @@ public class CameraController : MonoBehaviour
         _third = true;
 
         // Ensure correct cameras/players are enabled
-        if (firstPerson.activeInHierarchy)
+        if (_firstPerson.activeInHierarchy)
         {
-            firstPerson.SetActive(false);
-            thirdPerson.SetActive(true);
+            _firstPerson.SetActive(false);
+            _thirdPerson.SetActive(true);
         }
 
         // Get the first and third person characters from the serialized fields
-        _fpPlayer = firstPerson.transform.Find("Player").gameObject.transform;
-        _tpPlayer = thirdPerson.transform.Find("Player").gameObject.transform;
+        _fpPlayer = _firstPerson.transform.Find("Player").gameObject.transform;
+        _tpPlayer = _thirdPerson.transform.Find("Player").gameObject.transform;
 
         // Grab the third person controller from the third person player
         _tpController = _tpPlayer.GetComponent<StarterAssets.ThirdPersonController>();
@@ -67,8 +67,8 @@ public class CameraController : MonoBehaviour
                 _tpController.CinemachineTargetPitch = _fpPlayer.rotation.eulerAngles.x;
 
                 // Disable the first person mode, enable third person
-                firstPerson.SetActive(false);
-                thirdPerson.SetActive(true);
+                _firstPerson.SetActive(false);
+                _thirdPerson.SetActive(true);
             }
             else // if changed to first person
             {
@@ -77,8 +77,8 @@ public class CameraController : MonoBehaviour
                 _fpPlayer.rotation = _tpPlayer.rotation;
 
                 // Disable the third person mode, enable first person
-                thirdPerson.SetActive(false);
-                firstPerson.SetActive(true);
+                _thirdPerson.SetActive(false);
+                _firstPerson.SetActive(true);
             }
         }
     }
