@@ -11,5 +11,5 @@ public interface IInteractable
     public string InteractionPrompt { get; }
 
     // Does something when the player interacts
-    public void Interact(ThirdPersonInteractor thirdPersonInteractor);
+    public void Interact(Interactor interactor);
 }

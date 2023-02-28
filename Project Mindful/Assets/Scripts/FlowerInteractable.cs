@@ -21,8 +21,8 @@ public class FlowerInteractable : MonoBehaviour, IInteractable
     /// <summary>
     /// Shrinks the player on interaction.
     /// </summary>
-    /// <param name="thirdPersonInteractor">The third person player</param>
-    public void Interact(ThirdPersonInteractor thirdPersonInteractor)
+    /// <param name="interactor">The player</param>
+    public void Interact(Interactor interactor)
     {
         Debug.Log("shrinking player");
     }

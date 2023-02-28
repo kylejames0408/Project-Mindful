@@ -6,7 +6,7 @@ using TMPro;
 /// <summary>
 /// SOURCE: https://www.youtube.com/watch?v=THmW4YolDok
 /// </summary>
-public class ThirdPersonInteractionPromptUI : MonoBehaviour
+public class InteractionPromptUI : MonoBehaviour
 {
     #region Fields
     private Camera _mainCam;

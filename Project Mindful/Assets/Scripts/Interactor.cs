@@ -5,13 +5,13 @@ using UnityEngine;
 /// <summary>
 /// SOURCE: https://www.youtube.com/watch?v=THmW4YolDok
 /// </summary>
-public class ThirdPersonInteractor : MonoBehaviour
+public class Interactor : MonoBehaviour
 {
     #region Fields
     [SerializeField] private Transform _interactionPoint;
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
-    [SerializeField] private ThirdPersonInteractionPromptUI _interactionPromptUI;
+    [SerializeField] private InteractionPromptUI _interactionPromptUI;
 
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
