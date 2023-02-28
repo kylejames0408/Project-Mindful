@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741d79b3df8f5a140b497a12bae3f265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scalar: 100
+  fovScale: 50
+  minScale: 0.25
   _firstPerson: {fileID: 0}
   _thirdPerson: {fileID: 0}

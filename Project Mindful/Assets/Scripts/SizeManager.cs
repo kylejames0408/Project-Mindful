@@ -14,6 +14,7 @@ public class SizeManager : MonoBehaviour
     [SerializeField] private GameObject _firstPerson;
     [SerializeField] private GameObject _thirdPerson;
     #endregion
+    public float ScalePercent { get { return (_scale / _originalScale); } }
 
     /// <summary>
     /// Initialize Fields.
