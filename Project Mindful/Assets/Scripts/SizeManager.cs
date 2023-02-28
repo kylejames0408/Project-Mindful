@@ -5,12 +5,17 @@ using UnityEngine;
 public class SizeManager : MonoBehaviour
 {
     #region Fields
-    private float _time;
     private float _scale;
     private float _originalScale;
-    [SerializeField] private float _scalar; // set larger to have small decreases over time
-    [SerializeField] private float fovScale;
-    [SerializeField] private float minScale;
+
+    // LERP vals
+    private float _time;
+    private float _newScale;
+    private float _prevScale;
+    private float _scaleSpeed;
+
+    [SerializeField] private float _fovScale;
+    [SerializeField] private float _minScale;
     [SerializeField] private GameObject _firstPerson;
     [SerializeField] private GameObject _thirdPerson;
     #endregion
@@ -25,26 +30,68 @@ public class SizeManager : MonoBehaviour
         _time = 0;
         _originalScale = _firstPerson.transform.localScale.x; // Assumes scale is uniform
         _scale = _originalScale;
+        _newScale = _scale;
+        _prevScale = _scale;
+        _scaleSpeed = 1f;
     }
 
     /// <summary>
     /// Update the player scale.
     /// </summary>
     void Update()
-    {
-        // Update the scale if larger than 1/4 of the original size.
-        if (_scale > _originalScale*minScale)
+    {       
+        if (_scale != _newScale)
         {
-            // Update time and scale
+            _scale = Mathf.Lerp(_prevScale, _newScale, _time / _scaleSpeed);
             _time += Time.deltaTime;
-            _scale = _originalScale - (_time / _scalar);
-
-            // Scale the first person appropriately
-            _firstPerson.transform.localScale = new Vector3(_scale, _scale, _scale);
-
-            // Scale the third person and camera FOV appropriately
-            _thirdPerson.transform.localScale = new Vector3(_scale, _scale, _scale);
-            _thirdPerson.transform.Find("PlayerFollowCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView = _scale * fovScale;
+            ScalePlayer();
         }
+    }
+
+    public void SetScale(float scale, float duration = 1f)
+    {
+        if (scale <= _originalScale && scale >= _minScale)
+        {
+            _newScale = scale;
+            _prevScale = _scale;
+            _scaleSpeed = duration;
+            _time = 0f;
+        }
+    }
+
+    public void DecreaseScale(float decrease, float duration = 1f)
+    {
+        float endValue = _scale - decrease;
+
+        if (endValue > _minScale)
+        {
+            _newScale = endValue;
+            _prevScale = _scale;
+            _scaleSpeed = duration;
+            _time = 0f;
+        }
+    }
+
+    public void IncreaseScale(float increase, float duration = 1f)
+    {
+        float endValue = _scale + increase;
+
+        if (endValue > _originalScale)
+        {
+            _newScale = endValue;
+            _prevScale = _scale;
+            _scaleSpeed = duration;
+            _time = 0f;
+        }
+    }
+
+    private void ScalePlayer()
+    {
+        // Scale the first person appropriately
+        _firstPerson.transform.localScale = new Vector3(_scale, _scale, _scale);
+
+        // Scale the third person and camera FOV appropriately
+        _thirdPerson.transform.localScale = new Vector3(_scale, _scale, _scale);
+        _thirdPerson.transform.Find("PlayerFollowCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView = _scale * _fovScale;
     }
 }

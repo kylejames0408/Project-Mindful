@@ -9,6 +9,7 @@ public interface IInteractable
 {
     // Stores the prompt to display
     public string InteractionPrompt { get; }
+    public bool Interacted { get; }
 
     // Does something when the player interacts
     public void Interact(Interactor interactor);

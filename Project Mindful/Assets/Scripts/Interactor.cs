@@ -35,7 +35,7 @@ public class Interactor : MonoBehaviour
             if (_interactable != null)
             {
                 // If the UI is not displayed, show the UI
-                if (!_interactionPromptUI.IsDisplayed)
+                if (!_interactionPromptUI.IsDisplayed && !_interactable.Interacted)
                 {
                     _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
                 }
@@ -44,6 +44,7 @@ public class Interactor : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     _interactable.Interact(this);
+                    _interactionPromptUI.Close();
                 }
             }
         }
