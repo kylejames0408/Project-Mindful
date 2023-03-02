@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string _prompt;
     private bool _interacted = false;
     private int parentInteractionCount;
-    private gameObject parentObj;
+    private GameObject parentObj;
     #endregion
 
     #region Properties
@@ -27,7 +27,8 @@ public class Interactable : MonoBehaviour
     /// </summary>
     void Start()
     {
-        parentObj = this.transform.parent.gameObject; 
+        parentObj = this.transform.parent.gameObject;
+        Debug.Log(parentObj);
     }
     /// <summary>
     /// Shrinks the player on interaction.
@@ -38,7 +39,8 @@ public class Interactable : MonoBehaviour
         if (!_interacted)
         {
             _interacted = true;
-            parentObj.GetComponent<InteractionParent>();
+            parentObj.GetComponent<InteractableParent>().currentInteractions += 1;
+            Debug.Log(parentObj.GetComponent<InteractableParent>().currentInteractions);
             GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(0.1f);
         }
     }
