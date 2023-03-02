@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
         if (currentState == GameState.Playing)
         {
             timeSpent += Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Backspace)) EndScene(); // Placeholder while ui trigger doesn't work
         }
 
         if (currentState == GameState.Start)
@@ -44,6 +45,12 @@ public class UIManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape)) QuitGame();
         }
+
+        if (currentState == GameState.End)
+        {
+            if (Input.GetKeyDown(KeyCode.Return)) ResetScene(); // Placeholder while ui clicking doesn't work
+        }
+
 
         if (currentState == GameState.Paused)
         {
@@ -115,7 +122,7 @@ public class UIManager : MonoBehaviour
         float percentage = size.ScalePercent;
         int mins = (int)(timeSpent / 60);
         int secs = (int)timeSpent % 60;
-        ResultsText[0].GetComponent<TextMeshPro>().text = mins + "m " + secs + "s";
+        ResultsText[0].GetComponent<TextMeshProUGUI>().text = mins + "m " + secs + "s";
         string sizeAssement = "";
         string overalAssement = "";
         if(percentage > .75)
@@ -138,8 +145,8 @@ public class UIManager : MonoBehaviour
             sizeAssement = "Mirco";
             overalAssement = "Mindfulness";
         }
-        ResultsText[1].GetComponent<TextMeshPro>().text = sizeAssement;
-        ResultsText[0].GetComponent<TextMeshPro>().text = overalAssement;
+        ResultsText[1].GetComponent<TextMeshProUGUI>().text = sizeAssement;
+        ResultsText[2].GetComponent<TextMeshProUGUI>().text = overalAssement;
 
     }
 

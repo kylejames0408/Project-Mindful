@@ -92,6 +92,7 @@ public class SizeManager : MonoBehaviour
 
         // Scale the third person and camera FOV appropriately
         _thirdPerson.transform.localScale = new Vector3(_scale, _scale, _scale);
+        Debug.Log("Scale: " + _scale + "FOV Scale: " + _fovScale);
         _thirdPerson.transform.Find("PlayerFollowCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView = _scale * _fovScale;
     }
 }

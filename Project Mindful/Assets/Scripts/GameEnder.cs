@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GameEnder : MonoBehaviour
 {
-    void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hello");
+        if (other.name == "Player")
+        {
+            GameObject.Find("UIManager").GetComponent<UIManager>().EndScene();
+        }
     }
 }
