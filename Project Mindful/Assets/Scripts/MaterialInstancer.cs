@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 public class MaterialInstancer : MonoBehaviour
 {
-    public GameObject obj;
-    public Material material;
+    private GameObject obj;
+    private Material material;
 
     // Start is called before the first frame update
     void Start()

@@ -12,7 +12,10 @@ GameObject:
   - component: {fileID: 1362991237420635450}
   - component: {fileID: 3823175682418909680}
   - component: {fileID: 3318689441606926374}
-  m_Layer: 0
+  - component: {fileID: 8331966285622264093}
+  - component: {fileID: 3386356552964529212}
+  - component: {fileID: 1444731605269802305}
+  m_Layer: 6
   m_Name: PP_Mushroom_Fantasy_Purple_08_Interactable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,3 +101,43 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7580556513892443023, guid: 6aac2ae04e9a93646918391471e1a564, type: 3}
+--- !u!114 &8331966285622264093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318689441606926373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d301ae5af03f0247ad038715d69043a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3386356552964529212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318689441606926373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc7432ba4d83ea42b8868a422039585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prompt: Press E to taste
+  outlineStrength: 0.5
+  disableMeshAfter: 1
+--- !u!135 &1444731605269802305
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318689441606926373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: -0.009118758, y: 0.1468705, z: -0.0024109595}
