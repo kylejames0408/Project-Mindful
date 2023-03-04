@@ -1,16 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
-using static UnityEditor.Progress;
 
 public class UIManager : MonoBehaviour
 {
@@ -72,7 +67,7 @@ public class UIManager : MonoBehaviour
         if (currentState == GameState.Paused)
         {
             if (Input.GetKeyDown(KeyCode.Backspace) || ((Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Quit))) ResetScene();
-            if ((Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Play)) ResetScene();
+            if ((Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Play)) TogglePause();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -287,14 +282,22 @@ public class UIManager : MonoBehaviour
         // Reading JSON From: https://stackoverflow.com/questions/13297563/read-and-parse-a-json-file-in-c-sharp
         // Written by, L.B: https://stackoverflow.com/users/932418/l-b
         // Last Edited by, Robert Christopher: https://stackoverflow.com/users/3886729/robert-christopher
-
-        using (StreamReader r = new StreamReader(@"MindfulData.json"))
+        try
         {
-            string readingJson = r.ReadToEnd();
-            var checkJSon = JsonConvert.DeserializeObject<List<MindfulnessAssement>>(readingJson);
-            if (checkJSon != null) assements.AddRange(JsonConvert.DeserializeObject<List<MindfulnessAssement>>(readingJson));
+
+        
+            using (StreamReader r = new StreamReader(@"MindfulData.json"))
+            {
+                string readingJson = r.ReadToEnd();
+                var checkJSon = JsonConvert.DeserializeObject<List<MindfulnessAssement>>(readingJson);
+                if (checkJSon != null) assements.AddRange(JsonConvert.DeserializeObject<List<MindfulnessAssement>>(readingJson));
 
             
+            }
+        }
+        catch (Exception exp)
+        {
+            Console.WriteLine(exp.Message);
         }
 
         assements.Add(new MindfulnessAssement()
