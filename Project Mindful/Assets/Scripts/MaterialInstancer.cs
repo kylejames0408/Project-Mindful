@@ -7,14 +7,17 @@ using UnityEngine;
 /// </summary>
 public class MaterialInstancer : MonoBehaviour
 {
+    private GameObject parentObj;
     private GameObject obj;
     private Material material;
+    [SerializeField] public float outlineStrength;
 
     // Start is called before the first frame update
     void Start()
     {
+        parentObj = transform.parent.gameObject;
         obj = this.gameObject;
-        material = obj.GetComponent<MeshRenderer>().material;
+        material = parentObj.GetComponent<MeshRenderer>().material;
             //whats the difference between the top and bottom line?
         //material = obj.GetComponent<Material>();
     }
@@ -28,5 +31,21 @@ public class MaterialInstancer : MonoBehaviour
     public void SetOutline(float thickness)
     {
         material.SetFloat("_OtlWidth", thickness);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Player")
+        {
+            SetOutline(outlineStrength);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.name == "Player")
+        {
+            SetOutline(0f);
+        }
     }
 }
