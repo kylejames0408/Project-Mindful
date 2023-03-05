@@ -29,7 +29,7 @@ public class InteractableParent : MonoBehaviour
         {
             Debug.Log("Deactivate children");
             child.GetComponent<MeshCollider>().enabled = false;
-            child.GetComponent<SphereCollider>().enabled = false;
+            child.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = false;
             child.GetComponent<Interactable>().DisableOutLine();
         }
         childrenDeactivated = true;

@@ -13,7 +13,4 @@ public interface IInteractable
 
     // Does something when the player interacts
     public void Interact(Interactor interactor);
-
-    // Outlines when the player is near
-    public void Outline();
 }

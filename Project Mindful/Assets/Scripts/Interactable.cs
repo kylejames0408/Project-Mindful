@@ -10,11 +10,12 @@ public class Interactable : MonoBehaviour, IInteractable
     #region Fields
     // Stores the prompt to display
     [SerializeField] private string _prompt;
-    [SerializeField] float outlineStrength;
+    
     [SerializeField] bool disableMeshAfter;
     private bool _interacted = false;
     private int parentInteractionCount;
     private GameObject parentObj;
+    private GameObject childObj;
     private MaterialInstancer matInstancer;
     #endregion
 
@@ -31,6 +32,7 @@ public class Interactable : MonoBehaviour, IInteractable
     void Start()
     {
         parentObj = this.transform.parent.gameObject;
+        childObj = this.transform.GetChild(0).gameObject;
         matInstancer = gameObject.GetComponent<MaterialInstancer>();
     }
     /// <summary>
@@ -48,44 +50,23 @@ public class Interactable : MonoBehaviour, IInteractable
 
             if(gameObject.GetComponent<SphereCollider>() != null)
             {
-                gameObject.GetComponent<SphereCollider>().enabled = false;
+                childObj.GetComponent<SphereCollider>().enabled = false;
             }
             if(gameObject.GetComponent<CapsuleCollider>() != null)
             {
-                gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                childObj.GetComponent<CapsuleCollider>().enabled = false;
             }
             if (disableMeshAfter)
             {
                 gameObject.GetComponent<MeshCollider>().enabled = false;
             }
-            DisableOutLine();
+            childObj.GetComponent<MaterialInstancer>().SetOutline(0f);
         }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.name == "Player")
-        {
-            Outline();
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.name == "Player")
-        {
-            DisableOutLine();
-        }
-    }
-
-    public void Outline()
-    {
-        matInstancer.SetOutline(outlineStrength);
     }
 
     public void DisableOutLine()
     {
-        matInstancer.SetOutline(0f);
+        childObj.GetComponent<MaterialInstancer>().SetOutline(0f);
     }
     #endregion
 }
