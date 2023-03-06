@@ -32,5 +32,10 @@ public class FlowerInteractable : MonoBehaviour, IInteractable
             GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(0.1f);
         }
     }
+
+    public void Outline()
+    {
+        // Does nothing
+    }
     #endregion
 }
