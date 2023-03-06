@@ -6,13 +6,17 @@ using TMPro;
 using System.IO;
 using System;
 using Newtonsoft.Json;
+using StarterAssets;
 
 public class UIManager : MonoBehaviour
 {
-    enum GameState { Start, Playing, Paused, End };
+    enum GameState { Title, Instructions, Playing, Paused, End };
     enum MenuSelect { Play,Quit,Volume}
+    [SerializeField] FirstPersonController firstPSController;
+    [SerializeField] ThirdPersonController thirdPSController;
     [SerializeField] GameObject PauseMenu;
-    [SerializeField] GameObject StartMenu;
+    [SerializeField] GameObject InstructionsMenu;
+    [SerializeField] GameObject TitleMenu;
     [SerializeField] GameObject EndMenu;
     [SerializeField] List<GameObject> Cameras;
     [SerializeField] List<GameObject> ResultsText;
@@ -27,13 +31,15 @@ public class UIManager : MonoBehaviour
     MenuSelect selectedButton;
 
     float timeSpent;
+    float currentVolume = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentState = GameState.Start;
+        currentState = GameState.Title;
         MenuButtonSelect(MenuSelect.Play);
-        StartMenu.SetActive(true);
+        TitleMenu.SetActive(true);
+        InstructionsMenu.SetActive(false); 
         PauseMenu.SetActive(false);
         EndMenu.SetActive(false);
         ToggleCameras(false);
@@ -51,12 +57,32 @@ public class UIManager : MonoBehaviour
             timeSpent += Time.deltaTime;
         }
 
-        if (currentState == GameState.Start)
+        if (currentState == GameState.Instructions)
         {
-            if(Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Play) StartGame();
+            if (Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Play) StartGame();
+
+            if (Input.GetKeyDown(KeyCode.Escape) || ((Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Quit)))
+            {
+                currentState = GameState.Title;
+                InstructionsMenu.SetActive(false);
+                TitleMenu.SetActive(true);
+            }
+        }
+
+        if (currentState == GameState.Title)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Play)
+            {
+                currentState = GameState.Instructions;
+                InstructionsMenu.SetActive(true);
+                TitleMenu.SetActive(false);
+            } 
+            
 
             if (Input.GetKeyDown(KeyCode.Escape) || ((Input.GetKeyDown(KeyCode.Return) && selectedButton == MenuSelect.Quit))) QuitGame();
         }
+
+        
 
         if (currentState == GameState.End)
         {
@@ -165,7 +191,7 @@ public class UIManager : MonoBehaviour
                 break;
 
             // Do nothing
-            case GameState.Start:
+            case GameState.Title:
                 break;
             case GameState.End:
                 break;
@@ -179,7 +205,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         timeSpent = 0;
         currentState = GameState.Playing;
-        StartMenu.SetActive(false);
+        InstructionsMenu.SetActive(false);
         ToggleCameras(true);
 
     }
@@ -266,6 +292,8 @@ public class UIManager : MonoBehaviour
             c.SetActive(enable);
         }
         //Cursor.visible = enable;
+        firstPSController.enabled = enable;
+        thirdPSController.enabled = enable;
     }
 
     private class MindfulnessAssement
