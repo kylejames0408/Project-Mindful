@@ -48,11 +48,11 @@ public class Interactable : MonoBehaviour, IInteractable
             Debug.Log(parentObj.GetComponent<InteractableParent>().currentInteractions);
             GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(0.1f);
 
-            if(gameObject.GetComponent<SphereCollider>() != null)
+            if(childObj.GetComponent<SphereCollider>() != null)
             {
                 childObj.GetComponent<SphereCollider>().enabled = false;
             }
-            if(gameObject.GetComponent<CapsuleCollider>() != null)
+            if(childObj.GetComponent<CapsuleCollider>() != null)
             {
                 childObj.GetComponent<CapsuleCollider>().enabled = false;
             }
