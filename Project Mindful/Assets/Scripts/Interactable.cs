@@ -13,6 +13,8 @@ public class Interactable : MonoBehaviour, IInteractable
     
     [SerializeField] bool disableMeshAfter;
     private bool _interacted = false;
+    private bool kickedBall = false;
+    private float _speed = 5f;
     private int parentInteractionCount;
     private GameObject parentObj;
     private GameObject childObj;
@@ -45,6 +47,9 @@ public class Interactable : MonoBehaviour, IInteractable
         {
             _interacted = true;
             parentObj.GetComponent<InteractableParent>().currentInteractions += 1;
+            if(gameObject.name == "SoccerBall"){
+                kickedBall = true;
+            }
             Debug.Log(parentObj.GetComponent<InteractableParent>().currentInteractions);
             GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(0.1f);
 
@@ -61,6 +66,23 @@ public class Interactable : MonoBehaviour, IInteractable
                 gameObject.GetComponent<MeshCollider>().enabled = false;
             }
             childObj.GetComponent<MaterialInstancer>().SetOutline(0f);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (kickedBall)
+        {
+            Vector3 movement = new Vector3(1, 0, 0);
+            gameObject.GetComponent<Rigidbody>().AddForce(movement * _speed);
+
+            _speed -= Time.deltaTime;
+
+            if (_speed <= -2f)
+            {
+                gameObject.GetComponent<Rigidbody>().Sleep();
+                this.enabled = false;
+            }
         }
     }
 

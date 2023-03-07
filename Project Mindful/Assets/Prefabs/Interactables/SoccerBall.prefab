@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 2820834086788584086}
   - component: {fileID: 7304368090489333321}
   - component: {fileID: 8360387578841466477}
+  - component: {fileID: 5357780418338718340}
   m_Layer: 6
   m_Name: SoccerBall
   m_TagString: Untagged
@@ -156,7 +157,7 @@ MeshCollider:
   m_GameObject: {fileID: 5568981985952339204}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -191,3 +192,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: E to Kick
   disableMeshAfter: 0
+--- !u!135 &5357780418338718340
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568981985952339204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0085064
+  m_Center: {x: 0, y: 0, z: 0}
