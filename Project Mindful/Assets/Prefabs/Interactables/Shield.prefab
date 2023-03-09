@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prompt: Press E to help the snail
-  vec3Target: {fileID: 0}
+  snailTarget: {fileID: 0}
   snail: {fileID: 0}
   snailShell: {fileID: 0}
   sizeDecrease: 0.1
