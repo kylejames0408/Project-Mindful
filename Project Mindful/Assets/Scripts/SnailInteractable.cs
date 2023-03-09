@@ -7,7 +7,7 @@ public class SnailInteractable : MonoBehaviour, IInteractable
     #region Fields
     // Stores the prompt to display
     [SerializeField] private string _prompt;
-    [SerializeField] private Transform vec3Target;
+    [SerializeField] private Transform snailTarget;
     [SerializeField] private GameObject snail;
     [SerializeField] private GameObject snailShell;
 
@@ -16,6 +16,8 @@ public class SnailInteractable : MonoBehaviour, IInteractable
     private bool reachedTarget = false;
     public float sizeDecrease = 0.1f;
     public float distanceTreshold = 1.0f;
+
+    private Vector3 target;
     #endregion
 
     #region Properties
@@ -28,14 +30,14 @@ public class SnailInteractable : MonoBehaviour, IInteractable
     private void Start()
     {
         snail.SetActive(false);
-
+        target = snailTarget.position;
     }
 
     private void FixedUpdate()
     {
         if (_interacted && !reachedTarget)
         {
-            if (Vector3.Distance(transform.position, vec3Target.position) <= 0.1f)
+            if (Vector3.Distance(transform.position, target) <= 0.1f)
             {
                 reachedTarget = true;
             }
@@ -45,7 +47,7 @@ public class SnailInteractable : MonoBehaviour, IInteractable
                 awoken = true;
             }
 
-            snail.transform.position = Vector3.Lerp(snail.transform.position, vec3Target.position, 0.01f);
+            snail.transform.position = Vector3.Lerp(snail.transform.position, target, 0.01f);
 
 
 
