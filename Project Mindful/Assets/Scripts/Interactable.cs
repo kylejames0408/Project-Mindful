@@ -10,7 +10,7 @@ public class Interactable : MonoBehaviour, IInteractable
     #region Fields
     // Stores the prompt to display
     [SerializeField] private string _prompt;
-    
+    [SerializeField] public float sizeDecreaseFactor;
     [SerializeField] bool disableMeshAfter;
     private bool _interacted = false;
     private bool kickedBall = false;
@@ -51,7 +51,7 @@ public class Interactable : MonoBehaviour, IInteractable
                 kickedBall = true;
             }
             Debug.Log(parentObj.GetComponent<InteractableParent>().currentInteractions);
-            GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(0.1f);
+            GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(sizeDecreaseFactor);
 
             if(childObj.GetComponent<SphereCollider>() != null)
             {
