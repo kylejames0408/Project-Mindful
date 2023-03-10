@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquirrelInteractable : MonoBehaviour
+public class SquirrelInteractable : MonoBehaviour, IInteractable
 {
     #region Fields
     // Stores the prompt to display
     [SerializeField] private string _prompt;
-    [SerializeField] private GameObject discardedNut;
-    [SerializeField] private GameObject nutInHand;
+    [SerializeField] private GameObject acornOnGround;
+    [SerializeField] private GameObject acornInHand;
 
     private bool _interacted = false;
     private bool nutGiven = false;
     public float sizeDecrease = 0.1f;
-    public float distanceTreshold = 1.0f;
 
-    private Vector3 target;
     #endregion
 
     #region Properties
@@ -27,8 +25,7 @@ public class SquirrelInteractable : MonoBehaviour
     #region Methods
     private void Start()
     {
-        nutInHand.SetActive(false);
-        target = nutInHand.transform.position;
+        acornInHand.GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void FixedUpdate()
@@ -46,9 +43,9 @@ public class SquirrelInteractable : MonoBehaviour
         {
             _interacted = true;
             //snailShell.SetActive(false);
-            discardedNut.GetComponent<MeshRenderer>().enabled = false;
-            discardedNut.GetComponent<MeshCollider>().enabled = false;
-            nutInHand.SetActive(true);
+            acornOnGround.GetComponent<MeshRenderer>().enabled = false;
+            acornOnGround.GetComponent<MeshCollider>().enabled = false;
+            acornInHand.GetComponent<MeshRenderer>().enabled = true;
             //snail.transform.position = snailShell.transform.position;
             GameObject.Find("SizeManager").GetComponent<SizeManager>().DecreaseScale(sizeDecrease);
         }
