@@ -115,8 +115,8 @@ public class UIManager : MonoBehaviour
                 if (selectedButton != MenuSelect.Volume) { MenuButtonSelect(MenuSelect.Quit); }
 
             }
-            if ((Input.GetKeyDown(KeyCode.UpArrow)) || (Input.GetKeyDown(KeyCode.W))) MenuButtonSelect(MenuSelect.Volume);
-            if ((Input.GetKeyDown(KeyCode.DownArrow)) || (Input.GetKeyDown(KeyCode.S))) MenuButtonSelect(MenuSelect.Play);
+            if ((Input.GetKeyDown(KeyCode.UpArrow)) || (Input.GetKeyDown(KeyCode.W)) && currentState != GameState.Title) MenuButtonSelect(MenuSelect.Volume);
+            if ((Input.GetKeyDown(KeyCode.DownArrow)) || (Input.GetKeyDown(KeyCode.S)) && currentState != GameState.Title) MenuButtonSelect(MenuSelect.Play);
 
             float time = Time.deltaTime;
             if (selectedButton == MenuSelect.Volume)
