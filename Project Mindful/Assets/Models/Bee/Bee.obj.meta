@@ -3,7 +3,27 @@ guid: 391bb049b3dca67448985e5a0e346a00
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bee1_Group32121Mat
+    second: {fileID: 2100000, guid: 0ef43bf3b0d72734d9ccb9b7bdb4e8bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wing1Mat
+    second: {fileID: 2100000, guid: 1c2c9110e108583428d3a34f3a8cd16e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wing2Mat
+    second: {fileID: 2100000, guid: b01bf7a0f5eac9248b845e2ed333f8a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wing3Mat
+    second: {fileID: 2100000, guid: 25aab2b8b66c772479d3467811673bf8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

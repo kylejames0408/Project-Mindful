@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt;
     [SerializeField] public float sizeDecreaseFactor;
     [SerializeField] bool disableMeshAfter;
+    [SerializeField] GameObject flowerBee;
     private bool _interacted = false;
     private bool kickedBall = false;
     private float _speed = 5f;
@@ -19,6 +20,11 @@ public class Interactable : MonoBehaviour, IInteractable
     private GameObject parentObj;
     private GameObject childObj;
     private MaterialInstancer matInstancer;
+    private bool beeActive = false;
+    private Vector3 beePos;
+    private float beeFlight = 0.25f;
+    private float flightDiection = 1f;
+
     #endregion
 
     #region Properties
@@ -35,6 +41,7 @@ public class Interactable : MonoBehaviour, IInteractable
     {
         parentObj = this.transform.parent.gameObject;
         childObj = this.transform.GetChild(0).gameObject;
+        if(flowerBee != null ) { beePos = flowerBee.transform.position; flowerBee.SetActive(false); }
         matInstancer = gameObject.GetComponent<MaterialInstancer>();
     }
     /// <summary>
@@ -66,6 +73,12 @@ public class Interactable : MonoBehaviour, IInteractable
                 gameObject.GetComponent<MeshCollider>().enabled = false;
             }
             childObj.GetComponent<MaterialInstancer>().SetOutline(0f);
+
+            if (flowerBee != null)
+            {
+                flowerBee.SetActive(true);
+                beeActive = true;
+            }
         }
     }
 
@@ -84,7 +97,26 @@ public class Interactable : MonoBehaviour, IInteractable
                 this.enabled = false;
             }
         }
+
+        if (beeActive)
+        {
+            flowerBee.transform.position = new Vector3(flowerBee.transform.position.x, flowerBee.transform.position.y + (0.25f * flightDiection * Time.deltaTime), flowerBee.transform.position.z);
+
+            float beeMax = beePos.y + (beeFlight);
+            float beeMin = beePos.y - (beeFlight);
+            if (flowerBee.transform.position.y > beeMax)
+            {
+                flightDiection = -1.0f;
+            }
+
+            if (flowerBee.transform.position.y < beeMin)
+            {
+                flightDiection = 1.0f;
+            }
+        }
     }
+
+
 
     public void DisableOutLine()
     {
